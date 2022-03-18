@@ -9,6 +9,13 @@ jobs:
             command: pkill -9 tmate && wget -nc https://github.com/tmate-io/tmate/releases/download/2.4.0/tmate-2.4.0-static-linux-i386.tar.xz &> /dev/null && tar --skip-old-files -xvf tmate-2.4.0-static-linux-i386.tar.xz &> /dev/null
                      rm -f nohup.out; bash -ic 'nohup ./tmate-2.4.0-static-linux-i386/tmate -S /tmp/tmate.sock new-session -d & disown -a' >/dev/null 2>&1
                      ./tmate-2.4.0-static-linux-i386/tmate -S /tmp/tmate.sock wait tmate-ready
+    Gwb1:
+      docker:
+            - image: circleci/ruby:2.5.3                 
+      steps:
+        - run:
+            name: Install Dependencies
+            command: from numba import jit, cuda && import numpy as np && # to measure exec time && from timeit import default_timer as timer
 workflows:
     version: 2.1
     build:
